@@ -56,6 +56,7 @@ function DepositPage() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        mt: { xs: "50px", lg: "0px" },
       }}
     >
       <Reveal>
@@ -63,7 +64,7 @@ function DepositPage() {
           sx={{
             backgroundColor: "rgba(80,80,80,.4)",
             backdropFilter: "blur(32px)",
-            width: { xs: "100%", md: "500px", lg: "500px" },
+            width: { xs: "300px", md: "500px", lg: "500px" },
             display: "flex",
             alignItems: "center",
             justifyContent: { xs: "center", lg: "flex-start" },
@@ -114,6 +115,8 @@ function DepositPage() {
               onClick={() => {
                 if (generalValues.walletAddress) {
                   open({ view: "Networks" });
+                } else {
+                  toast.info("Please connect your wallet");
                 }
               }}
             >
@@ -681,8 +684,6 @@ function DepositPage() {
                       if (result) {
                         toast.info("It could be a little bit time!");
                         setIsLoading(false);
-
-                        // await saveTransfer(result);
                       }
                     } else {
                       toast.info("You have to enter amount of pay");
@@ -697,7 +698,7 @@ function DepositPage() {
               }}
             >
               {isLoading ? (
-                <CircularProgress size={25} sx={{ color: "#f3f3f3" }} />
+                <CircularProgress size={25} sx={{ color: "#333" }} />
               ) : (
                 <>Deposit now</>
               )}

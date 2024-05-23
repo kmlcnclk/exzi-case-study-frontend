@@ -1,11 +1,14 @@
 import Layout from "@/components/Layout/index";
+import RequireAuth from "@/components/RequireAuth";
 import BalancePage from "@/components/Wallet/BalancePage";
 
 function Balance() {
   return (
-    <Layout>
-      <BalancePage />
-    </Layout>
+    <RequireAuth>
+      <Layout>
+        <BalancePage />
+      </Layout>
+    </RequireAuth>
   );
 }
 

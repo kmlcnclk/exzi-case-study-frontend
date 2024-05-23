@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import Reveal from "../Reveal";
 
 function CreateWalletPage() {
   const [walletType, setWalletType] = useState<string>("");
@@ -61,68 +62,69 @@ function CreateWalletPage() {
         height: "100vh",
       }}
     >
-      <Box
-        component={Paper}
-        sx={{
-          boxShadow: "0px 4px 20px 2px rgba(0, 0, 0, 0.25)",
-          borderRadius: "30px",
-          px: { xs: "25px", md: "30px" },
-          py: { xs: "25px", md: "50px" },
-          width: { xs: "310px", sm: "420px", md: "450px", xl: "520px" },
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography
-          component="h1"
-          variant="h5"
-          sx={{ color: "black", mb: { xs: "5px", md: "20px" }, mt: "5px" }}
+      <Reveal>
+        <Box
+          component={Paper}
+          sx={{
+            boxShadow: "0px 4px 20px 2px rgba(0, 0, 0, 0.25)",
+            borderRadius: "30px",
+            px: { xs: "25px", md: "30px" },
+            py: { xs: "25px", md: "50px" },
+            width: { xs: "310px", sm: "420px", md: "450px", xl: "520px" },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          Create your wallet
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit}>
-          <Select
-            value={walletType}
-            sx={{
-              width: "100%",
-            }}
-            onChange={(e: SelectChangeEvent) => {
-              setWalletType(e.target.value as string);
-            }}
+          <Typography
+            component="h1"
+            variant="h5"
+            sx={{ color: "black", mb: { xs: "5px", md: "20px" }, mt: "5px" }}
           >
-            <MenuItem value="ethereum">Ethereum</MenuItem>
-            <MenuItem value="bitcoin">Bitcoin</MenuItem>
-          </Select>
-          <Button
-            sx={{
-              background: "linear-gradient(90deg, #FC9BB3 0%, #7673FE 100%)",
-              boxShadow: "0px 4px 10px 1px #00000040",
-              borderRadius: "10px",
-              width: "100%",
-              height: "50px",
-              my: "20px",
-            }}
-            type="submit"
-          >
-            {isLoading ? (
-              <CircularProgress size={30} sx={{ color: "#f3f3f3" }} />
-            ) : (
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontFamily: "Inter",
-                  fontSize: "16px",
-                  fontWeight: "700",
-                  color: "#FFFFFF",
-                }}
-              >
-                Create Wallet
-              </Typography>
-            )}
-          </Button>
+            Create your wallet
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit}>
+            <Select
+              value={walletType}
+              sx={{
+                width: "100%",
+              }}
+              onChange={(e: SelectChangeEvent) => {
+                setWalletType(e.target.value as string);
+              }}
+            >
+              <MenuItem value="ethereum">Ethereum</MenuItem>
+            </Select>
+            <Button
+              sx={{
+                background: "linear-gradient(90deg, #FC9BB3 0%, #7673FE 100%)",
+                boxShadow: "0px 4px 10px 1px #00000040",
+                borderRadius: "10px",
+                width: "100%",
+                height: "50px",
+                my: "20px",
+              }}
+              type="submit"
+            >
+              {isLoading ? (
+                <CircularProgress size={30} sx={{ color: "#f3f3f3" }} />
+              ) : (
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontFamily: "Inter",
+                    fontSize: "16px",
+                    fontWeight: "700",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  Create Wallet
+                </Typography>
+              )}
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </Reveal>
     </Box>
   );
 }

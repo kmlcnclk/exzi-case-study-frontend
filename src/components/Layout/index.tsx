@@ -9,8 +9,11 @@ import {
 } from "@/store/slices/generalSlice";
 import Models from "../Models";
 import { ReturnedUserType } from "@/types/User";
-import { getAccessTokenFromLocalStorage } from "@/localstorage/accessTokenStorage";
-import { toast } from "react-toastify";
+import {
+  deleteAccessTokenFromLocalStorage,
+  getAccessTokenFromLocalStorage,
+} from "@/localstorage/accessTokenStorage";
+import { deleteRefreshTokenFromLocalStorage } from "@/localstorage/refreshTokenStorage";
 
 interface LayoutProps {
   children?: ReactNode;
@@ -42,6 +45,14 @@ export default function Layout({ children }: LayoutProps) {
 
       if (res.ok) {
         setUser(data.user);
+      } else {
+        if (
+          data.error.message === "JWT Token Expired" ||
+          data.error.message === "jwt expired"
+        ) {
+          deleteAccessTokenFromLocalStorage();
+          deleteRefreshTokenFromLocalStorage();
+        }
       }
     };
 
@@ -70,6 +81,15 @@ export default function Layout({ children }: LayoutProps) {
 
       if (status === 200) {
         dispatch(setWalletAddressInSystem(data.walletAddress));
+      } else {
+        console.log(data);
+        if (
+          data.error.message === "JWT Token Expired" ||
+          data.error.message === "jwt expired"
+        ) {
+          deleteAccessTokenFromLocalStorage();
+          deleteRefreshTokenFromLocalStorage();
+        }
       }
     };
 

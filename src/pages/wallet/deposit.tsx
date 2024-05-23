@@ -1,11 +1,14 @@
 import Layout from "@/components/Layout/index";
+import RequireAuth from "@/components/RequireAuth";
 import DepositPage from "@/components/Wallet/DepositPage";
 
 function Deposit() {
   return (
-    <Layout>
-      <DepositPage />
-    </Layout>
+    <RequireAuth>
+      <Layout>
+        <DepositPage />
+      </Layout>
+    </RequireAuth>
   );
 }
 

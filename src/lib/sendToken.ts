@@ -196,7 +196,7 @@ export const sendToken = async (
             }
           } else if (currentToken === "ethereum") {
             const amount = ethers.parseUnits(value.toString(), 18);
-            console.log(wallet);
+
             const tx = await signer.sendTransaction({
               from: address,
               to: wallet,

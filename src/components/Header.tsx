@@ -25,6 +25,13 @@ import ChecklistIcon from "@mui/icons-material/Checklist";
 import ArticleIcon from "@mui/icons-material/Article";
 import { deleteAccessTokenFromLocalStorage } from "@/localstorage/accessTokenStorage";
 import { deleteRefreshTokenFromLocalStorage } from "@/localstorage/refreshTokenStorage";
+import {
+  AccountBalance,
+  AccountBalanceWallet,
+  History,
+  LocalAtm,
+  ShoppingCart,
+} from "@mui/icons-material";
 
 interface Props {}
 
@@ -74,12 +81,12 @@ const Header: React.FC<Props> = () => {
   const tradeList = [
     {
       name: "Buy / Sell",
-      link: "/wallet/buy-sell",
+      link: "/trade/buy-sell",
       id: "buy-sell",
     },
     {
       name: "History",
-      link: "/wallet/history",
+      link: "/trade/history",
       id: "history",
     },
   ];
@@ -187,7 +194,7 @@ const Header: React.FC<Props> = () => {
               alt="Main Logo"
               width={100}
               height={100}
-              priority={true}
+              fetchPriority="high"
               style={{
                 objectFit: "contain",
               }}
@@ -268,7 +275,7 @@ const Header: React.FC<Props> = () => {
                               }, 1000);
                             }}
                           >
-                            {wallet.name === "Login" ? (
+                            {wallet.name === "Create Wallet" ? (
                               <AddIcon
                                 sx={{
                                   fill: "white",
@@ -278,8 +285,28 @@ const Header: React.FC<Props> = () => {
                                 }}
                               />
                             ) : null}
-                            {wallet.name === "Register" ? (
-                              <ChecklistIcon
+                            {wallet.name === "Deposit" ? (
+                              <AccountBalance
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            {wallet.name === "Withdraw" ? (
+                              <LocalAtm
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            {wallet.name === "Balance" ? (
+                              <AccountBalanceWallet
                                 sx={{
                                   fill: "white",
                                   mr: "10px",
@@ -303,95 +330,289 @@ const Header: React.FC<Props> = () => {
                       ))}{" "}
                     </>
                   ) : (
-                    <Box
-                      sx={{
-                        cursor: "pointer",
-                      }}
-                      onClick={(e: any) => {
-                        e.preventDefault();
-                        router.push(hl.link);
-                        setTimeout(() => {
-                          const itemName = hl.id as unknown as string;
+                    <>
+                      {hl.name === "Trade" ? (
+                        <>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              mt: "10px",
+                            }}
+                          >
+                            <StarIcon
+                              sx={{
+                                fill: "white",
+                                mr: "10px",
+                                width: "20px",
+                                height: "20px",
+                              }}
+                            />
+                            <Typography
+                              sx={{
+                                background:
+                                  router.asPath === hl.link
+                                    ? "linear-gradient(90deg, rgb(203,238,85) 0%, rgb(222,228,83) 100%)"
+                                    : "rgb(130,130,129)",
+                                color: "#f3f3f3",
+                                display: "inline-flex",
+                                WebkitBackgroundClip: "text",
+                                fontSize: "15px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              {hl.name}
+                            </Typography>
+                          </Box>
+                          {tradeList.map((trade, i) => (
+                            <Box
+                              key={i}
+                              sx={{
+                                ml: "25px",
+                                mt: "10px",
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  router.push(trade.link);
+                                  setTimeout(() => {
+                                    const itemName =
+                                      trade.id as unknown as string;
 
-                          const item: any = document.getElementById(itemName);
-                          if (item) {
-                            item.scrollIntoView({
-                              behavior: "smooth",
-                            });
-                          }
-                          setClickedItem(hl.name);
-                        }, 1000);
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          mt: "10px",
-                        }}
-                      >
-                        {hl.name === "Home" ? (
-                          <HomeIcon
-                            sx={{
-                              fill: "white",
-                              mr: "10px",
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />
-                        ) : null}
-                        {hl.name === "About Us" ? (
-                          <InfoIcon
-                            sx={{
-                              fill: "white",
-                              mr: "10px",
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />
-                        ) : null}
-                        {hl.name === "Connect Us" ? (
-                          <ForumIcon
-                            sx={{
-                              fill: "white",
-                              mr: "10px",
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />
-                        ) : null}
-                        {hl.name === "Whitepaper" ? (
-                          <ArticleIcon
-                            sx={{
-                              fill: "white",
-                              mr: "10px",
-                              width: "20px",
-                              height: "20px",
-                            }}
-                          />
-                        ) : null}
-                        <Typography
+                                    const item: any =
+                                      document.getElementById(itemName);
+                                    if (item) {
+                                      item.scrollIntoView({
+                                        behavior: "smooth",
+                                      });
+                                    }
+                                    setClickedItem(trade.name);
+                                  }, 1000);
+                                }}
+                              >
+                                {trade.name === "Buy / Sell" ? (
+                                  <ShoppingCart
+                                    sx={{
+                                      fill: "white",
+                                      mr: "10px",
+                                      width: "20px",
+                                      height: "20px",
+                                    }}
+                                  />
+                                ) : null}
+                                {trade.name === "History" ? (
+                                  <History
+                                    sx={{
+                                      fill: "white",
+                                      mr: "10px",
+                                      width: "20px",
+                                      height: "20px",
+                                    }}
+                                  />
+                                ) : null}
+                                <Typography
+                                  sx={{
+                                    background: "rgb(130,130,129)",
+                                    color: "#f3f3f3",
+                                    WebkitBackgroundClip: "text",
+                                    fontSize: "15px",
+                                  }}
+                                >
+                                  {trade.name}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          ))}{" "}
+                        </>
+                      ) : (
+                        <Box
                           sx={{
-                            background:
-                              router.asPath === hl.link
-                                ? "linear-gradient(90deg, rgb(203,238,85) 0%, rgb(222,228,83) 100%)"
-                                : "rgb(255,255,255)",
-                            color: "#f3f3f3",
+                            cursor: "pointer",
+                          }}
+                          onClick={(e: any) => {
+                            e.preventDefault();
+                            router.push(hl.link);
+                            setTimeout(() => {
+                              const itemName = hl.id as unknown as string;
 
-                            WebkitBackgroundClip: "text",
-                            fontSize: "15px",
+                              const item: any =
+                                document.getElementById(itemName);
+                              if (item) {
+                                item.scrollIntoView({
+                                  behavior: "smooth",
+                                });
+                              }
+                              setClickedItem(hl.name);
+                            }, 1000);
                           }}
                         >
-                          {hl.name}
-                        </Typography>
-                      </Box>
-                    </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              mt: "10px",
+                            }}
+                          >
+                            {hl.name === "Home" ? (
+                              <HomeIcon
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            {hl.name === "About Us" ? (
+                              <InfoIcon
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            {hl.name === "Connect Us" ? (
+                              <ForumIcon
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            {hl.name === "Whitepaper" ? (
+                              <ArticleIcon
+                                sx={{
+                                  fill: "white",
+                                  mr: "10px",
+                                  width: "20px",
+                                  height: "20px",
+                                }}
+                              />
+                            ) : null}
+                            <Typography
+                              sx={{
+                                background:
+                                  router.asPath === hl.link
+                                    ? "linear-gradient(90deg, rgb(203,238,85) 0%, rgb(222,228,83) 100%)"
+                                    : "rgb(255,255,255)",
+                                color: "#f3f3f3",
+
+                                WebkitBackgroundClip: "text",
+                                fontSize: "15px",
+                              }}
+                            >
+                              {hl.name}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      )}
+                    </>
                   )}
                 </>
               }
             </Box>
           ))}
+
+          {generalValues?.walletAddressInSystem ? (
+            <Button
+              variant="contained"
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100",
+                height: "40px",
+                borderRadius: "10px",
+                boxShadow: "none",
+                background: "#dc2626",
+                px: "20px",
+                ml: "30px",
+                mt: "20px",
+                "&:hover": {
+                  background: "#dc2626",
+                },
+              }}
+              onClick={() => {
+                deleteAccessTokenFromLocalStorage();
+                deleteRefreshTokenFromLocalStorage();
+                router.reload();
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                }}
+              >
+                Logout
+              </Typography>
+            </Button>
+          ) : (
+            <>
+              <Button
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "40px",
+                  px: "30px",
+                  borderRadius: "5px",
+                  background:
+                    "linear-gradient(90deg, rgb(203,238,85) 0%, rgb(222,228,83) 100%)",
+                  color: "black",
+                  ml: "30px",
+                  mt: "20px",
+                }}
+                onClick={() => {
+                  router.push("/auth/sign-in");
+                }}
+              >
+                <Typography
+                  sx={{
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Sign In
+                </Typography>
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "40px",
+                  px: "30px",
+                  borderRadius: "5px",
+                  background:
+                    "linear-gradient(90deg, rgb(203,238,85) 0%, rgb(222,228,83) 100%)",
+                  color: "black",
+                  ml: "30px",
+                  mt: "20px",
+                }}
+                onClick={() => {
+                  router.push("/auth/sign-up");
+                }}
+              >
+                <Typography
+                  sx={{
+                    textTransform: "capitalize",
+                  }}
+                >
+                  Sign Up
+                </Typography>
+              </Button>
+            </>
+          )}
         </Box>
       </Drawer>
       <Button
@@ -438,7 +659,7 @@ const Header: React.FC<Props> = () => {
               alt="Main Logo"
               width={100}
               height={100}
-              priority={true}
+              fetchPriority="high"
               style={{
                 objectFit: "contain",
               }}
@@ -769,7 +990,7 @@ const Header: React.FC<Props> = () => {
           <Button
             variant="contained"
             sx={{
-              display: "flex",
+              display: { xs: "none", lg: "flex" },
               justifyContent: "center",
               alignItems: "center",
               width: "100",
@@ -814,7 +1035,7 @@ const Header: React.FC<Props> = () => {
                 color: "black",
               }}
               onClick={() => {
-                router.push("/auth/login");
+                router.push("/auth/sign-in");
               }}
             >
               <Typography
@@ -840,7 +1061,7 @@ const Header: React.FC<Props> = () => {
                 color: "black",
               }}
               onClick={() => {
-                router.push("/auth/register");
+                router.push("/auth/sign-up");
               }}
             >
               <Typography
@@ -853,7 +1074,7 @@ const Header: React.FC<Props> = () => {
             </Button>
           </>
         )}
-        {/*    <Button
+        <Button
           variant="contained"
           sx={{
             ml: { xs: "0px", md: "20px" },
@@ -878,7 +1099,7 @@ const Header: React.FC<Props> = () => {
           >
             {generalValues.walletAddress ? " Your Wallet" : "Connect Wallet"}
           </Typography>
-        </Button> */}
+        </Button>
         <Button
           variant="text"
           sx={{

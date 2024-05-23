@@ -1,11 +1,14 @@
 import Layout from "@/components/Layout/index";
+import RequireAuth from "@/components/RequireAuth";
 import WithdrawPage from "@/components/Wallet/WithdrawPage";
 
 function Withdraw() {
   return (
-    <Layout>
-      <WithdrawPage />
-    </Layout>
+    <RequireAuth>
+      <Layout>
+        <WithdrawPage />
+      </Layout>
+    </RequireAuth>
   );
 }
 
