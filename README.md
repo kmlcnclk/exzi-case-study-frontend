@@ -1,4 +1,4 @@
-# Crypto Transaction System For EXZI
+# Cryptocurrency Trading System UI For EXZI
 
 This system allows users to perform various cryptocurrency transactions, including wallet creation, deposits, withdrawals, and trading. Below are the available routes and their functionalities. Go to [EXZI Backend](https://github.com/kmlcnclk/exzi-case-study-backend/)
 
@@ -96,7 +96,7 @@ Then, connect your wallet provider with the system (Metamask, Phantom, Trust Wal
     ```
 2. Install dependencies:
     ```bash
-    cd crypto-transaction-system
+    cd exzi-case-study-frontend
     npm install
     ```
 3. Run the application:
