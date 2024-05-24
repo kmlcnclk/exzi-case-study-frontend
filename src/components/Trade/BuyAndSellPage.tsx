@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 import { detectMetamask } from "@/lib/general";
 import { getAccessTokenFromLocalStorage } from "@/localstorage/accessTokenStorage";
 
-function BuyAndSalePage() {
+function BuyAndSellPage() {
   const generalValues: GeneralValueType = useSelector(
     (state: RootState) => state.general.value
   ) as GeneralValueType;
@@ -138,7 +138,6 @@ function BuyAndSalePage() {
         >
           <>
             <Box
-              id="Sale-Container"
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -271,28 +270,30 @@ function BuyAndSalePage() {
                     </Typography>
                   </MenuItem>
                 ) : null}
-                <MenuItem value="eth">
-                  <Image
-                    style={{
-                      marginRight: "10px",
-                      objectFit: "contain",
-                      marginLeft: "20px",
-                    }}
-                    src="/ethereum.png"
-                    alt="Ethereum Logo"
-                    width={22}
-                    height={22}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: "600",
-                      color: "#333",
-                    }}
-                  >
-                    ETH
-                  </Typography>
-                </MenuItem>
+                {generalValues.currentNetwork === "bsc" ? (
+                  <MenuItem value="eth">
+                    <Image
+                      style={{
+                        marginRight: "10px",
+                        objectFit: "contain",
+                        marginLeft: "20px",
+                      }}
+                      src="/ethereum.png"
+                      alt="Ethereum Logo"
+                      width={22}
+                      height={22}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: "15px",
+                        fontWeight: "600",
+                        color: "#333",
+                      }}
+                    >
+                      ETH
+                    </Typography>
+                  </MenuItem>
+                ) : null}
                 <MenuItem value="usdt">
                   <Image
                     style={{
@@ -386,28 +387,30 @@ function BuyAndSalePage() {
                     </Typography>
                   </MenuItem>
                 ) : null}
-                <MenuItem value="eth">
-                  <Image
-                    style={{
-                      marginRight: "10px",
-                      objectFit: "contain",
-                      marginLeft: "20px",
-                    }}
-                    src="/ethereum.png"
-                    alt="Ethereum Logo"
-                    width={22}
-                    height={22}
-                  />
-                  <Typography
-                    sx={{
-                      fontSize: "15px",
-                      fontWeight: "600",
-                      color: "#333",
-                    }}
-                  >
-                    ETH
-                  </Typography>
-                </MenuItem>
+                {generalValues.currentNetwork === "bsc" ? (
+                  <MenuItem value="eth">
+                    <Image
+                      style={{
+                        marginRight: "10px",
+                        objectFit: "contain",
+                        marginLeft: "20px",
+                      }}
+                      src="/ethereum.png"
+                      alt="Ethereum Logo"
+                      width={22}
+                      height={22}
+                    />
+                    <Typography
+                      sx={{
+                        fontSize: "15px",
+                        fontWeight: "600",
+                        color: "#333",
+                      }}
+                    >
+                      ETH
+                    </Typography>
+                  </MenuItem>
+                ) : null}
                 <MenuItem value="usdt">
                   <Image
                     style={{
@@ -636,4 +639,4 @@ function BuyAndSalePage() {
   );
 }
 
-export default BuyAndSalePage;
+export default BuyAndSellPage;
