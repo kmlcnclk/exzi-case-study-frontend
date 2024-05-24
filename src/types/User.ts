@@ -3,21 +3,16 @@ export interface IUser {
   name: string;
   password: string;
   ethereumWallet?: string;
-  bitcoinWallet?: string;
   resetPasswordToken?: string;
   resetPasswordExpire?: Date;
 }
 
 export type SignUpType = Omit<
-  Omit<
-    Omit<Omit<IUser, "ethereumWallet">, "bitcoinWallet">,
-    "resetPasswordToken"
-  >,
+  Omit<Omit<IUser, "ethereumWallet">, "resetPasswordToken">,
   "resetPasswordExpire"
 > & {
   passwordConfirmation: string;
 };
-
 export type SignInType = {
   email: string;
   password: string;

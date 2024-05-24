@@ -23,7 +23,7 @@ export const sendToken = async (
         const signer = await ethersProvider.getSigner();
 
         if (currentNetwork === "bsc") {
-          if (currentToken === "tether") {
+          if (currentToken === "usdt") {
             const tokenContract = new Contract(
               "0x55d398326f99059fF775485246999027B3197955",
               bscUSDTContract,
@@ -54,7 +54,7 @@ export const sendToken = async (
             } else {
               toast.info("Your balance is not enough");
             }
-          } else if (currentToken === "usd-coin") {
+          } else if (currentToken === "usdc") {
             const tokenContract = new Contract(
               "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
               bscUSDCContract,
@@ -85,7 +85,7 @@ export const sendToken = async (
             } else {
               toast.info("Your balance is not enough");
             }
-          } else if (currentToken === "binancecoin") {
+          } else if (currentToken === "bnb") {
             const amount = ethers.parseUnits(value.toString(), 18);
 
             const tx = await signer.sendTransaction({
@@ -99,7 +99,7 @@ export const sendToken = async (
 
             if (tx.from === address && tx.to === wallet) return tx.hash;
             return false;
-          } else if (currentToken === "ethereum") {
+          } else if (currentToken === "eth") {
             const tokenContract = new Contract(
               "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
               bscETHContract,
@@ -132,7 +132,7 @@ export const sendToken = async (
             }
           }
         } else if (currentNetwork === "eth") {
-          if (currentToken === "tether") {
+          if (currentToken === "usdt") {
             const tokenContract = new Contract(
               "0xdac17f958d2ee523a2206206994597c13d831ec7",
               ethUSDTContract,
@@ -163,7 +163,7 @@ export const sendToken = async (
             } else {
               toast.info("Your balance is not enough");
             }
-          } else if (currentToken === "usd-coin") {
+          } else if (currentToken === "usdc") {
             const tokenContract = new Contract(
               "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
               ethUSDCContract,
@@ -194,7 +194,7 @@ export const sendToken = async (
             } else {
               toast.info("Your balance is not enough");
             }
-          } else if (currentToken === "ethereum") {
+          } else if (currentToken === "eth") {
             const amount = ethers.parseUnits(value.toString(), 18);
 
             const tx = await signer.sendTransaction({

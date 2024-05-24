@@ -38,12 +38,12 @@ function DepositPage() {
   useEffect(() => {
     if (chainId === 1 || chainId === 11155111 || chainId === 5) {
       dispatch(setCurrentNetwork("eth"));
-      dispatch(setCurrentToken("ethereum"));
+      dispatch(setCurrentToken("eth"));
       detectMetamask(generalValues.walletAddress, dispatch);
       dispatch(setAmountOfPay("0"));
     } else if (chainId === 56 || chainId === 97) {
       dispatch(setCurrentNetwork("bsc"));
-      dispatch(setCurrentToken("binancecoin"));
+      dispatch(setCurrentToken("bnb"));
       detectMetamask(generalValues.walletAddress, dispatch);
       dispatch(setAmountOfPay("0"));
     }
@@ -168,7 +168,7 @@ function DepositPage() {
                   <Grid item xs={12} sm={6}>
                     <Button
                       variant={
-                        generalValues.currentToken === "binancecoin"
+                        generalValues.currentToken === "bnb"
                           ? "contained"
                           : "outlined"
                       }
@@ -181,32 +181,32 @@ function DepositPage() {
                         height: "40px",
                         borderRadius: "10px",
                         border:
-                          generalValues.currentToken === "binancecoin"
+                          generalValues.currentToken === "bnb"
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "binancecoin"
+                          generalValues.currentToken === "bnb"
                             ? "#7c3aed"
                             : "",
                         "&:hover": {
                           border:
-                            generalValues.currentToken === "binancecoin"
+                            generalValues.currentToken === "bnb"
                               ? "#7c3aed 1px solid"
                               : "white 2px solid",
                           backgroundColor:
-                            generalValues.currentToken === "binancecoin"
+                            generalValues.currentToken === "bnb"
                               ? "#7c3aed"
                               : "",
                           "*": {
                             color:
-                              generalValues.currentToken === "binancecoin"
+                              generalValues.currentToken === "bnb"
                                 ? "white"
                                 : "white",
                           },
                         },
                       }}
                       onClick={() => {
-                        dispatch(setCurrentToken("binancecoin"));
+                        dispatch(setCurrentToken("bnb"));
                       }}
                     >
                       <Image
@@ -224,7 +224,7 @@ function DepositPage() {
                           fontSize: "15px",
                           fontWeight: "600",
                           color:
-                            generalValues.currentToken === "binancecoin"
+                            generalValues.currentToken === "bnb"
                               ? "white"
                               : "white",
                         }}
@@ -236,7 +236,7 @@ function DepositPage() {
                   <Grid item xs={12} sm={6}>
                     <Button
                       variant={
-                        generalValues.currentToken === "ethereum"
+                        generalValues.currentToken === "eth"
                           ? "contained"
                           : "outlined"
                       }
@@ -249,32 +249,32 @@ function DepositPage() {
                         height: "40px",
                         borderRadius: "10px",
                         border:
-                          generalValues.currentToken === "ethereum"
+                          generalValues.currentToken === "eth"
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "ethereum"
+                          generalValues.currentToken === "eth"
                             ? "#7c3aed"
                             : "",
                         "&:hover": {
                           border:
-                            generalValues.currentToken === "ethereum"
+                            generalValues.currentToken === "eth"
                               ? "#7c3aed 1px solid"
                               : "white 2px solid",
                           backgroundColor:
-                            generalValues.currentToken === "ethereum"
+                            generalValues.currentToken === "eth"
                               ? "#7c3aed"
                               : "",
                           "*": {
                             color:
-                              generalValues.currentToken === "ethereum"
+                              generalValues.currentToken === "eth"
                                 ? "white"
                                 : "white",
                           },
                         },
                       }}
                       onClick={() => {
-                        dispatch(setCurrentToken("ethereum"));
+                        dispatch(setCurrentToken("eth"));
                       }}
                     >
                       <Image
@@ -292,7 +292,7 @@ function DepositPage() {
                           fontSize: "15px",
                           fontWeight: "600",
                           color:
-                            generalValues.currentToken === "ethereum"
+                            generalValues.currentToken === "eth"
                               ? "white"
                               : "white",
                         }}
@@ -306,8 +306,8 @@ function DepositPage() {
                 <Grid item xs={12}>
                   <Button
                     variant={
-                      generalValues.currentToken === "ethereum" ||
-                      generalValues.currentToken === "binancecoin"
+                      generalValues.currentToken === "eth" ||
+                      generalValues.currentToken === "bnb"
                         ? "contained"
                         : "outlined"
                     }
@@ -320,30 +320,30 @@ function DepositPage() {
                       height: "40px",
                       borderRadius: "10px",
                       border:
-                        generalValues.currentToken === "ethereum" ||
-                        generalValues.currentToken === "binancecoin"
+                        generalValues.currentToken === "eth" ||
+                        generalValues.currentToken === "bnb"
                           ? "#7c3aed 1px solid"
                           : "#f3f3f3 1px solid",
                       backgroundColor:
-                        generalValues.currentToken === "ethereum" ||
-                        generalValues.currentToken === "binancecoin"
+                        generalValues.currentToken === "eth" ||
+                        generalValues.currentToken === "bnb"
                           ? "#7c3aed"
                           : "",
                       "&:hover": {
                         border:
-                          generalValues.currentToken === "ethereum" ||
-                          generalValues.currentToken === "binancecoin"
+                          generalValues.currentToken === "eth" ||
+                          generalValues.currentToken === "bnb"
                             ? "#7c3aed 1px solid"
                             : "white 2px solid",
                         backgroundColor:
-                          generalValues.currentToken === "ethereum" ||
-                          generalValues.currentToken === "binancecoin"
+                          generalValues.currentToken === "eth" ||
+                          generalValues.currentToken === "bnb"
                             ? "#7c3aed"
                             : "",
                         "*": {
                           color:
-                            generalValues.currentToken === "ethereum" ||
-                            generalValues.currentToken === "binancecoin"
+                            generalValues.currentToken === "eth" ||
+                            generalValues.currentToken === "bnb"
                               ? "white"
                               : "white",
                         },
@@ -351,9 +351,9 @@ function DepositPage() {
                     }}
                     onClick={() => {
                       if (generalValues.currentNetwork === "bsc") {
-                        dispatch(setCurrentToken("binancecoin"));
+                        dispatch(setCurrentToken("bnb"));
                       } else if (generalValues.currentNetwork === "eth") {
-                        dispatch(setCurrentToken("ethereum"));
+                        dispatch(setCurrentToken("eth"));
                       }
                     }}
                   >
@@ -374,8 +374,8 @@ function DepositPage() {
                             fontSize: "15px",
                             fontWeight: "600",
                             color:
-                              generalValues.currentToken === "ethereum" ||
-                              generalValues.currentToken === "binancecoin"
+                              generalValues.currentToken === "eth" ||
+                              generalValues.currentToken === "bnb"
                                 ? "white"
                                 : "white",
                           }}
@@ -400,8 +400,8 @@ function DepositPage() {
                             fontSize: "15px",
                             fontWeight: "600",
                             color:
-                              generalValues.currentToken === "ethereum" ||
-                              generalValues.currentToken === "binancecoin"
+                              generalValues.currentToken === "eth" ||
+                              generalValues.currentToken === "bnb"
                                 ? "white"
                                 : "white",
                           }}
@@ -416,7 +416,7 @@ function DepositPage() {
               <Grid item xs={12} sm={6}>
                 <Button
                   variant={
-                    generalValues.currentToken === "tether"
+                    generalValues.currentToken === "usdt"
                       ? "contained"
                       : "outlined"
                   }
@@ -429,30 +429,30 @@ function DepositPage() {
                     height: "40px",
                     borderRadius: "10px",
                     border:
-                      generalValues.currentToken === "tether"
+                      generalValues.currentToken === "usdt"
                         ? "#7c3aed 1px solid"
                         : "#f3f3f3 1px solid",
                     backgroundColor:
-                      generalValues.currentToken === "tether" ? "#7c3aed" : "",
+                      generalValues.currentToken === "usdt" ? "#7c3aed" : "",
                     "&:hover": {
                       border:
-                        generalValues.currentToken === "tether"
+                        generalValues.currentToken === "usdt"
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "tether"
+                        generalValues.currentToken === "usdt"
                           ? "#7c3aed"
                           : "",
                       "*": {
                         color:
-                          generalValues.currentToken === "tether"
+                          generalValues.currentToken === "usdt"
                             ? "white"
                             : "white",
                       },
                     },
                   }}
                   onClick={() => {
-                    dispatch(setCurrentToken("tether"));
+                    dispatch(setCurrentToken("usdt"));
                   }}
                 >
                   <Image
@@ -470,7 +470,7 @@ function DepositPage() {
                       fontSize: "15px",
                       fontWeight: "600",
                       color:
-                        generalValues.currentToken === "tether"
+                        generalValues.currentToken === "usdt"
                           ? "white"
                           : "white",
                     }}
@@ -482,7 +482,7 @@ function DepositPage() {
               <Grid item xs={12} sm={6}>
                 <Button
                   variant={
-                    generalValues.currentToken === "usd-coin"
+                    generalValues.currentToken === "usdc"
                       ? "contained"
                       : "outlined"
                   }
@@ -495,32 +495,32 @@ function DepositPage() {
                     height: "40px",
                     borderRadius: "10px",
                     border:
-                      generalValues.currentToken === "usd-coin"
+                      generalValues.currentToken === "usdc"
                         ? "#7c3aed 1px solid"
                         : "#f3f3f3 1px solid",
                     backgroundColor:
-                      generalValues.currentToken === "usd-coin"
+                      generalValues.currentToken === "usdc"
                         ? "#7c3aed"
                         : "",
                     "&:hover": {
                       border:
-                        generalValues.currentToken === "usd-coin"
+                        generalValues.currentToken === "usdc"
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "usd-coin"
+                        generalValues.currentToken === "usdc"
                           ? "#7c3aed"
                           : "",
                       "*": {
                         color:
-                          generalValues.currentToken === "usd-coin"
+                          generalValues.currentToken === "usdc"
                             ? "white"
                             : "white",
                       },
                     },
                   }}
                   onClick={() => {
-                    dispatch(setCurrentToken("usd-coin"));
+                    dispatch(setCurrentToken("usdc"));
                   }}
                 >
                   <Image
@@ -538,7 +538,7 @@ function DepositPage() {
                       fontSize: "15px",
                       fontWeight: "600",
                       color:
-                        generalValues.currentToken === "usd-coin"
+                        generalValues.currentToken === "usdc"
                           ? "white"
                           : "white",
                     }}
@@ -600,7 +600,7 @@ function DepositPage() {
                     alignItems: "center",
                   }}
                 >
-                  {generalValues.currentToken === "binancecoin" ? (
+                  {generalValues.currentToken === "bnb" ? (
                     <Box>
                       <Image
                         src="/bnb-logo.png"
@@ -612,7 +612,7 @@ function DepositPage() {
                         }}
                       />
                     </Box>
-                  ) : generalValues.currentToken === "tether" ? (
+                  ) : generalValues.currentToken === "usdt" ? (
                     <Box>
                       <Image
                         style={{
@@ -624,7 +624,7 @@ function DepositPage() {
                         height={40}
                       />
                     </Box>
-                  ) : generalValues.currentToken === "usd-coin" ? (
+                  ) : generalValues.currentToken === "usdc" ? (
                     <Box>
                       <Image
                         style={{
