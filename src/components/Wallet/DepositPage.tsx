@@ -675,7 +675,7 @@ function DepositPage() {
                     if (generalValues.amountOfPay !== "0") {
                       const result = await sendToken(
                         address,
-                        generalValues.walletAddressInSystem,
+                        generalValues?.walletAddressInSystem,
                         Number(generalValues.amountOfPay),
                         generalValues.currentNetwork,
                         generalValues.currentToken,

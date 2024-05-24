@@ -20,35 +20,33 @@ function CreateWalletPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    if (walletType) {
+      setIsLoading(true);
 
-    const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+      const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-    const userData: { type: string } = {
-      type: walletType,
-    };
+      const res = await fetch(`${BACKEND_URL}/wallet/create-wallet`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
+        },
+      });
 
-    const res = await fetch(`${BACKEND_URL}/wallet/create-wallet`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
-      },
-      body: JSON.stringify(userData),
-    });
+      const data = await res.json();
 
-    const status = await res.status;
-
-    const data = await res.json();
-
-    if (status === 200) {
-      toast.success("Wallet successfully created!");
-      setIsLoading(false);
+      if (res.ok) {
+        toast.success("Wallet successfully created!");
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        if (data?.message) toast.error(data.message);
+        else if (data?.error?.message) toast.error(data.error.message);
+        else if (data?.error) toast.error(data.error);
+        else if (data[0]) toast.error(data[0].message);
+      }
     } else {
-      setIsLoading(false);
-      if (data?.message) toast.error(data.message);
-      else if (data?.error) toast.error(data.error.message);
-      else if (data[0]) toast.error(data[0].message);
+      toast.info("Please select wallet type");
     }
   };
 

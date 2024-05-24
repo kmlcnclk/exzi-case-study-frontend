@@ -90,6 +90,7 @@ function BuyAndSellPage() {
             setIsLoadingForSell(false);
 
             if (data?.message) toast.error(data.message);
+            else if (data?.error?.message) toast.error(data.error.message);
             else if (data?.error) toast.error(data.error);
             else if (data[0]) toast.error(data[0].message);
           }

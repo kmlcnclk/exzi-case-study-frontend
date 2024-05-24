@@ -47,8 +47,8 @@ export default function Layout({ children }: LayoutProps) {
         setUser(data.user);
       } else {
         if (
-          data.error.message === "JWT Token Expired" ||
-          data.error.message === "jwt expired"
+          data?.error?.message === "JWT Token Expired" ||
+          data?.error?.message === "jwt expired"
         ) {
           deleteAccessTokenFromLocalStorage();
           deleteRefreshTokenFromLocalStorage();
@@ -82,10 +82,9 @@ export default function Layout({ children }: LayoutProps) {
       if (status === 200) {
         dispatch(setWalletAddressInSystem(data.walletAddress));
       } else {
-        console.log(data);
         if (
-          data.error.message === "JWT Token Expired" ||
-          data.error.message === "jwt expired"
+          data?.error?.message === "JWT Token Expired" ||
+          data?.error?.message === "jwt expired"
         ) {
           deleteAccessTokenFromLocalStorage();
           deleteRefreshTokenFromLocalStorage();
@@ -98,7 +97,7 @@ export default function Layout({ children }: LayoutProps) {
         a();
       }
     }
-  }, [generalValues.walletAddressInSystem]);
+  }, [generalValues?.walletAddressInSystem]);
 
   return (
     <Box

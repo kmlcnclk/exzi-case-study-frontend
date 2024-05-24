@@ -102,11 +102,11 @@ const Models: React.FC<Props> = ({ user }: Props) => {
                 color: "#fff",
               }}
             >
-              {generalValues.walletAddressInSystem.slice(0, 5)}
+              {generalValues?.walletAddressInSystem?.slice(0, 5)}
               ...
-              {generalValues.walletAddressInSystem.slice(
-                generalValues.walletAddressInSystem.length - 4,
-                generalValues.walletAddressInSystem.length
+              {generalValues?.walletAddressInSystem?.slice(
+                generalValues?.walletAddressInSystem?.length - 4,
+                generalValues?.walletAddressInSystem?.length
               )}
             </Typography>
             <Typography
@@ -226,7 +226,7 @@ const Models: React.FC<Props> = ({ user }: Props) => {
               },
             }}
             onClick={() => {
-              copy(generalValues.walletAddressInSystem);
+              copy(generalValues?.walletAddressInSystem);
               toast.success("Address successfully copied");
             }}
           >

@@ -79,7 +79,8 @@ function WithdrawPage() {
             setIsLoading(false);
 
             if (data?.message) toast.error(data.message);
-            else if (data?.error) toast.error(data.error.message);
+            else if (data?.error?.message) toast.error(data.error.message);
+            else if (data?.error) toast.error(data.error);
             else if (data[0]) toast.error(data[0].message);
           }
         } else {
@@ -230,9 +231,7 @@ function WithdrawPage() {
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "bnb"
-                            ? "#7c3aed"
-                            : "",
+                          generalValues.currentToken === "bnb" ? "#7c3aed" : "",
                         "&:hover": {
                           border:
                             generalValues.currentToken === "bnb"
@@ -298,9 +297,7 @@ function WithdrawPage() {
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "eth"
-                            ? "#7c3aed"
-                            : "",
+                          generalValues.currentToken === "eth" ? "#7c3aed" : "",
                         "&:hover": {
                           border:
                             generalValues.currentToken === "eth"
@@ -485,9 +482,7 @@ function WithdrawPage() {
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "usdt"
-                          ? "#7c3aed"
-                          : "",
+                        generalValues.currentToken === "usdt" ? "#7c3aed" : "",
                       "*": {
                         color:
                           generalValues.currentToken === "usdt"
@@ -544,18 +539,14 @@ function WithdrawPage() {
                         ? "#7c3aed 1px solid"
                         : "#f3f3f3 1px solid",
                     backgroundColor:
-                      generalValues.currentToken === "usdc"
-                        ? "#7c3aed"
-                        : "",
+                      generalValues.currentToken === "usdc" ? "#7c3aed" : "",
                     "&:hover": {
                       border:
                         generalValues.currentToken === "usdc"
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "usdc"
-                          ? "#7c3aed"
-                          : "",
+                        generalValues.currentToken === "usdc" ? "#7c3aed" : "",
                       "*": {
                         color:
                           generalValues.currentToken === "usdc"

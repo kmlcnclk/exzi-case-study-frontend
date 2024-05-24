@@ -23,7 +23,10 @@ import ForumIcon from "@mui/icons-material/Forum";
 import AddIcon from "@mui/icons-material/Add";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import ArticleIcon from "@mui/icons-material/Article";
-import { deleteAccessTokenFromLocalStorage } from "@/localstorage/accessTokenStorage";
+import {
+  deleteAccessTokenFromLocalStorage,
+  getAccessTokenFromLocalStorage,
+} from "@/localstorage/accessTokenStorage";
 import { deleteRefreshTokenFromLocalStorage } from "@/localstorage/refreshTokenStorage";
 import {
   AccountBalance,
@@ -94,6 +97,7 @@ const Header: React.FC<Props> = () => {
   const { open } = useWeb3Modal();
   const { address, chainId } = useWeb3ModalAccount();
   const [clickedItem, setClickedItem] = useState("home");
+  const [isAuth, setIsAuth] = useState(false);
 
   const generalValues: GeneralValueType = useSelector(
     (state: RootState) => state.general.value
@@ -142,6 +146,14 @@ const Header: React.FC<Props> = () => {
   const handleClose2 = () => {
     setAnchorEl2(null);
   };
+
+  useEffect(() => {
+    if (typeof window != "undefined") {
+      if (getAccessTokenFromLocalStorage()) {
+        setIsAuth(true);
+      }
+    }
+  }, []);
 
   return (
     <Box
@@ -975,18 +987,18 @@ const Header: React.FC<Props> = () => {
                   fontSize: "14px",
                 }}
               >
-                {generalValues.walletAddressInSystem.slice(0, 5)}
+                {generalValues?.walletAddressInSystem?.slice(0, 5)}
                 ...
-                {generalValues.walletAddressInSystem.slice(
-                  generalValues.walletAddressInSystem.length - 4,
-                  generalValues.walletAddressInSystem.length
+                {generalValues?.walletAddressInSystem?.slice(
+                  generalValues?.walletAddressInSystem?.length - 4,
+                  generalValues?.walletAddressInSystem?.length
                 )}
               </Typography>
             </Button>
           </Box>
         ) : null}
 
-        {generalValues?.walletAddressInSystem ? (
+        {isAuth ? (
           <Button
             variant="contained"
             sx={{
@@ -1074,6 +1086,7 @@ const Header: React.FC<Props> = () => {
             </Button>
           </>
         )}
+
         <Button
           variant="contained"
           sx={{
