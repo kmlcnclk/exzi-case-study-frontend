@@ -45,53 +45,58 @@ function WithdrawPage() {
 
   const makeWithdraw = async () => {
     setIsLoading(true);
-    if (isConnected) {
-      if (generalValues.walletAddress) {
-        if (generalValues.amountOfPay !== "0") {
-          setIsLoading(true);
+    if (chainId === 1 || chainId === 56) {
+      if (isConnected) {
+        if (generalValues.walletAddress) {
+          if (generalValues.amountOfPay !== "0") {
+            setIsLoading(true);
 
-          const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+            const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-          const withdrawData: any = {
-            amount: generalValues.amountOfPay,
-            to: address,
-            network: generalValues.currentNetwork,
-            token: generalValues.currentToken,
-          };
+            const withdrawData: any = {
+              amount: generalValues.amountOfPay,
+              to: address,
+              network: generalValues.currentNetwork,
+              token: generalValues.currentToken,
+            };
 
-          const res = await fetch(`${BACKEND_URL}/wallet/withdraw`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
-            },
-            body: JSON.stringify(withdrawData),
-          });
+            const res = await fetch(`${BACKEND_URL}/wallet/withdraw`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
+              },
+              body: JSON.stringify(withdrawData),
+            });
 
-          const status = await res.status;
+            const status = await res.status;
 
-          const data = await res.json();
+            const data = await res.json();
 
-          if (status === 200) {
-            toast.success(data.message);
-            setIsLoading(false);
+            if (status === 200) {
+              toast.success(data.message);
+              setIsLoading(false);
+            } else {
+              setIsLoading(false);
+
+              if (data?.message) toast.error(data.message);
+              else if (data?.error?.message) toast.error(data.error.message);
+              else if (data?.error) toast.error(data.error);
+              else if (data[0]) toast.error(data[0].message);
+            }
           } else {
-            setIsLoading(false);
-
-            if (data?.message) toast.error(data.message);
-            else if (data?.error?.message) toast.error(data.error.message);
-            else if (data?.error) toast.error(data.error);
-            else if (data[0]) toast.error(data[0].message);
+            toast.info("You have to enter amount of pay");
           }
         } else {
-          toast.info("You have to enter amount of pay");
+          toast.info("Please connect your wallet");
         }
       } else {
         toast.info("Please connect your wallet");
       }
     } else {
-      toast.info("Please connect your wallet");
+      toast.info("Please select BSC Mainnet or Ethereum Mainnet");
     }
+
     setIsLoading(false);
   };
 

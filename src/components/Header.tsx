@@ -977,7 +977,7 @@ const Header: React.FC<Props> = () => {
                 background: "rgb(65,65,65)",
                 px: "20px",
                 "&:hover": {
-                  background: "#000",
+                  background: "rgb(35,35,35)",
                 },
               }}
               onClick={() => dispatch(setOpenModal2(true))}

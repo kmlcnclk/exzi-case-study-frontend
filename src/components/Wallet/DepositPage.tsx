@@ -185,9 +185,7 @@ function DepositPage() {
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "bnb"
-                            ? "#7c3aed"
-                            : "",
+                          generalValues.currentToken === "bnb" ? "#7c3aed" : "",
                         "&:hover": {
                           border:
                             generalValues.currentToken === "bnb"
@@ -253,9 +251,7 @@ function DepositPage() {
                             ? "#7c3aed 1px solid"
                             : "#f3f3f3 1px solid",
                         backgroundColor:
-                          generalValues.currentToken === "eth"
-                            ? "#7c3aed"
-                            : "",
+                          generalValues.currentToken === "eth" ? "#7c3aed" : "",
                         "&:hover": {
                           border:
                             generalValues.currentToken === "eth"
@@ -440,9 +436,7 @@ function DepositPage() {
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "usdt"
-                          ? "#7c3aed"
-                          : "",
+                        generalValues.currentToken === "usdt" ? "#7c3aed" : "",
                       "*": {
                         color:
                           generalValues.currentToken === "usdt"
@@ -499,18 +493,14 @@ function DepositPage() {
                         ? "#7c3aed 1px solid"
                         : "#f3f3f3 1px solid",
                     backgroundColor:
-                      generalValues.currentToken === "usdc"
-                        ? "#7c3aed"
-                        : "",
+                      generalValues.currentToken === "usdc" ? "#7c3aed" : "",
                     "&:hover": {
                       border:
                         generalValues.currentToken === "usdc"
                           ? "#7c3aed 1px solid"
                           : "white 2px solid",
                       backgroundColor:
-                        generalValues.currentToken === "usdc"
-                          ? "#7c3aed"
-                          : "",
+                        generalValues.currentToken === "usdc" ? "#7c3aed" : "",
                       "*": {
                         color:
                           generalValues.currentToken === "usdc"
@@ -679,10 +669,11 @@ function DepositPage() {
                         Number(generalValues.amountOfPay),
                         generalValues.currentNetwork,
                         generalValues.currentToken,
-                        walletProvider
+                        walletProvider,
+                        chainId as number
                       );
                       if (result) {
-                        toast.info("It could be a little bit time!");
+                        toast.success("Deposit successfully completed. Please check your wallet!");
                         setIsLoading(false);
                       }
                     } else {

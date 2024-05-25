@@ -17,6 +17,7 @@ import Reveal from "../Reveal";
 
 function HistoryPage() {
   const [histories, setHistories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const a = async () => {
@@ -42,6 +43,7 @@ function HistoryPage() {
         else if (data?.error) toast.error(data.error);
         else if (data[0]) toast.error(data[0].message);
       }
+      setIsLoading(false);
     };
     a();
   }, []);
@@ -105,7 +107,21 @@ function HistoryPage() {
           </TableContainer>
         </Reveal>
       ) : (
-        <CircularProgress size={30} sx={{ color: "#f3f3f3" }} />
+        <>
+          {isLoading ? (
+            <CircularProgress size={30} sx={{ color: "#f3f3f3" }} />
+          ) : (
+            <Typography
+              sx={{
+                position: "absolute",
+                fontWeight: "600",
+                fontSize: "18px",
+              }}
+            >
+              You do not have any history
+            </Typography>
+          )}
+        </>
       )}
     </Box>
   );

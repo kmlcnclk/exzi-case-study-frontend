@@ -81,7 +81,14 @@ function CreateWalletPage() {
           >
             Create your wallet
           </Typography>
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{
+              px: "20px",
+              width: "100%",
+            }}
+          >
             <Select
               value={walletType}
               sx={{

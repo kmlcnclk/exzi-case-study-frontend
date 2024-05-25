@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout/index";
 import RequireAuth from "@/components/RequireAuth";
-import BuyAndSalePage from "@/components/Trade/BuyAndSalePage";
+import BuyAndSellPage from "@/components/Trade/BuyAndSellPage";
 
 function BuyAndSale() {
   return (
     <RequireAuth>
       <Layout>
-        <BuyAndSalePage />
+        <BuyAndSellPage />
       </Layout>
     </RequireAuth>
   );

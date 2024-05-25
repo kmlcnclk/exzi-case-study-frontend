@@ -14,203 +14,209 @@ export const sendToken = async (
   value: number,
   currentNetwork: string,
   currentToken: string,
-  walletProvider: any
+  walletProvider: any,
+  chainId: number
 ) => {
   try {
     if (get(window, "ethereum") || walletProvider) {
       if (address) {
-        const ethersProvider = new BrowserProvider(walletProvider);
-        const signer = await ethersProvider.getSigner();
+        if (chainId === 1 || chainId === 56) {
+          const ethersProvider = new BrowserProvider(walletProvider);
+          const signer = await ethersProvider.getSigner();
 
-        if (currentNetwork === "bsc") {
-          if (currentToken === "usdt") {
-            const tokenContract = new Contract(
-              "0x55d398326f99059fF775485246999027B3197955",
-              bscUSDTContract,
-              ethersProvider
-            );
+          if (currentNetwork === "bsc") {
+            if (currentToken === "usdt") {
+              const tokenContract = new Contract(
+                "0x55d398326f99059fF775485246999027B3197955",
+                bscUSDTContract,
+                ethersProvider
+              );
 
-            const balance = await tokenContract.balanceOf(address);
+              const balance = await tokenContract.balanceOf(address);
 
-            const decimals = await tokenContract.decimals();
+              const decimals = await tokenContract.decimals();
 
-            const amount = ethers.parseUnits(
-              value.toString(),
-              Number(decimals)
-            );
-            const isBalanceGreater = new BigNumber(
-              Number(balance)
-            ).isGreaterThanOrEqualTo(Number(amount));
+              const amount = ethers.parseUnits(
+                value.toString(),
+                Number(decimals)
+              );
+              const isBalanceGreater = new BigNumber(
+                Number(balance)
+              ).isGreaterThanOrEqualTo(Number(amount));
 
-            if (isBalanceGreater) {
-              const tx = await tokenContract
-                .connect(signer)
-                // @ts-ignore
-                .transfer(wallet, amount);
-              await tx.wait();
+              if (isBalanceGreater) {
+                const tx = await tokenContract
+                  .connect(signer)
+                  // @ts-ignore
+                  .transfer(wallet, amount);
+                await tx.wait();
 
-              if (tx.from === address) return tx.hash;
+                if (tx.from === address) return tx.hash;
+                return false;
+              } else {
+                toast.info("Your balance is not enough");
+              }
+            } else if (currentToken === "usdc") {
+              const tokenContract = new Contract(
+                "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+                bscUSDCContract,
+                ethersProvider
+              );
+
+              const balance = await tokenContract.balanceOf(address);
+
+              const decimals = await tokenContract.decimals();
+
+              const amount = ethers.parseUnits(
+                value.toString(),
+                Number(decimals)
+              );
+              const isBalanceGreater = new BigNumber(
+                Number(balance)
+              ).isGreaterThanOrEqualTo(Number(amount));
+
+              if (isBalanceGreater) {
+                const tx = await tokenContract
+                  .connect(signer)
+                  // @ts-ignore
+                  .transfer(wallet, amount);
+                await tx.wait();
+
+                if (tx.from === address) return tx.hash;
+                return false;
+              } else {
+                toast.info("Your balance is not enough");
+              }
+            } else if (currentToken === "bnb") {
+              const amount = ethers.parseUnits(value.toString(), 18);
+
+              const tx = await signer.sendTransaction({
+                from: address,
+                to: wallet,
+                value: amount,
+                gasLimit: 32000,
+                gasPrice: 3000000000,
+                chainId: "0x38",
+              });
+
+              if (tx.from === address && tx.to === wallet) return tx.hash;
               return false;
-            } else {
-              toast.info("Your balance is not enough");
+            } else if (currentToken === "eth") {
+              const tokenContract = new Contract(
+                "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+                bscETHContract,
+                ethersProvider
+              );
+
+              const balance = await tokenContract.balanceOf(address);
+
+              const decimals = await tokenContract.decimals();
+
+              const amount = ethers.parseUnits(
+                value.toString(),
+                Number(decimals)
+              );
+              const isBalanceGreater = new BigNumber(
+                Number(balance)
+              ).isGreaterThanOrEqualTo(Number(amount));
+
+              if (isBalanceGreater) {
+                const tx = await tokenContract
+                  .connect(signer)
+                  // @ts-ignore
+                  .transfer(wallet, amount);
+                await tx.wait();
+
+                if (tx.from === address) return tx.hash;
+                return false;
+              } else {
+                toast.info("Your balance is not enough");
+              }
             }
-          } else if (currentToken === "usdc") {
-            const tokenContract = new Contract(
-              "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
-              bscUSDCContract,
-              ethersProvider
-            );
+          } else if (currentNetwork === "eth") {
+            if (currentToken === "usdt") {
+              const tokenContract = new Contract(
+                "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                ethUSDTContract,
+                ethersProvider
+              );
 
-            const balance = await tokenContract.balanceOf(address);
+              const balance = await tokenContract.balanceOf(address);
 
-            const decimals = await tokenContract.decimals();
+              const decimals = await tokenContract.decimals();
 
-            const amount = ethers.parseUnits(
-              value.toString(),
-              Number(decimals)
-            );
-            const isBalanceGreater = new BigNumber(
-              Number(balance)
-            ).isGreaterThanOrEqualTo(Number(amount));
+              const amount = ethers.parseUnits(
+                value.toString(),
+                Number(decimals)
+              );
+              const isBalanceGreater = new BigNumber(
+                Number(balance)
+              ).isGreaterThanOrEqualTo(Number(amount));
 
-            if (isBalanceGreater) {
-              const tx = await tokenContract
-                .connect(signer)
-                // @ts-ignore
-                .transfer(wallet, amount);
-              await tx.wait();
+              if (isBalanceGreater) {
+                const tx = await tokenContract
+                  .connect(signer)
+                  // @ts-ignore
+                  .transfer(wallet, amount);
+                await tx.wait();
 
-              if (tx.from === address) return tx.hash;
+                if (tx.from === address) return tx.hash;
+                return false;
+              } else {
+                toast.info("Your balance is not enough");
+              }
+            } else if (currentToken === "usdc") {
+              const tokenContract = new Contract(
+                "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+                ethUSDCContract,
+                ethersProvider
+              );
+
+              const balance = await tokenContract.balanceOf(address);
+
+              const decimals = await tokenContract.decimals();
+
+              const amount = ethers.parseUnits(
+                value.toString(),
+                Number(decimals)
+              );
+              const isBalanceGreater = new BigNumber(
+                Number(balance)
+              ).isGreaterThanOrEqualTo(Number(amount));
+
+              if (isBalanceGreater) {
+                const tx = await tokenContract
+                  .connect(signer)
+                  // @ts-ignore
+                  .transfer(wallet, amount);
+                await tx.wait();
+
+                if (tx.from === address) return tx.hash;
+                return false;
+              } else {
+                toast.info("Your balance is not enough");
+              }
+            } else if (currentToken === "eth") {
+              const amount = ethers.parseUnits(value.toString(), 18);
+
+              const tx = await signer.sendTransaction({
+                from: address,
+                to: wallet,
+                value: amount,
+                gasLimit: 30000,
+                gasPrice: 42000000000,
+                chainId: "0x1",
+              });
+
+              if (tx.from === address && tx.to === wallet) return tx.hash;
               return false;
-            } else {
-              toast.info("Your balance is not enough");
-            }
-          } else if (currentToken === "bnb") {
-            const amount = ethers.parseUnits(value.toString(), 18);
-
-            const tx = await signer.sendTransaction({
-              from: address,
-              to: wallet,
-              value: amount,
-              gasLimit: 32000,
-              gasPrice: 3000000000,
-              chainId: "0x38",
-            });
-
-            if (tx.from === address && tx.to === wallet) return tx.hash;
-            return false;
-          } else if (currentToken === "eth") {
-            const tokenContract = new Contract(
-              "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-              bscETHContract,
-              ethersProvider
-            );
-
-            const balance = await tokenContract.balanceOf(address);
-
-            const decimals = await tokenContract.decimals();
-
-            const amount = ethers.parseUnits(
-              value.toString(),
-              Number(decimals)
-            );
-            const isBalanceGreater = new BigNumber(
-              Number(balance)
-            ).isGreaterThanOrEqualTo(Number(amount));
-
-            if (isBalanceGreater) {
-              const tx = await tokenContract
-                .connect(signer)
-                // @ts-ignore
-                .transfer(wallet, amount);
-              await tx.wait();
-
-              if (tx.from === address) return tx.hash;
-              return false;
-            } else {
-              toast.info("Your balance is not enough");
             }
           }
-        } else if (currentNetwork === "eth") {
-          if (currentToken === "usdt") {
-            const tokenContract = new Contract(
-              "0xdac17f958d2ee523a2206206994597c13d831ec7",
-              ethUSDTContract,
-              ethersProvider
-            );
-
-            const balance = await tokenContract.balanceOf(address);
-
-            const decimals = await tokenContract.decimals();
-
-            const amount = ethers.parseUnits(
-              value.toString(),
-              Number(decimals)
-            );
-            const isBalanceGreater = new BigNumber(
-              Number(balance)
-            ).isGreaterThanOrEqualTo(Number(amount));
-
-            if (isBalanceGreater) {
-              const tx = await tokenContract
-                .connect(signer)
-                // @ts-ignore
-                .transfer(wallet, amount);
-              await tx.wait();
-
-              if (tx.from === address) return tx.hash;
-              return false;
-            } else {
-              toast.info("Your balance is not enough");
-            }
-          } else if (currentToken === "usdc") {
-            const tokenContract = new Contract(
-              "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
-              ethUSDCContract,
-              ethersProvider
-            );
-
-            const balance = await tokenContract.balanceOf(address);
-
-            const decimals = await tokenContract.decimals();
-
-            const amount = ethers.parseUnits(
-              value.toString(),
-              Number(decimals)
-            );
-            const isBalanceGreater = new BigNumber(
-              Number(balance)
-            ).isGreaterThanOrEqualTo(Number(amount));
-
-            if (isBalanceGreater) {
-              const tx = await tokenContract
-                .connect(signer)
-                // @ts-ignore
-                .transfer(wallet, amount);
-              await tx.wait();
-
-              if (tx.from === address) return tx.hash;
-              return false;
-            } else {
-              toast.info("Your balance is not enough");
-            }
-          } else if (currentToken === "eth") {
-            const amount = ethers.parseUnits(value.toString(), 18);
-
-            const tx = await signer.sendTransaction({
-              from: address,
-              to: wallet,
-              value: amount,
-              gasLimit: 30000,
-              gasPrice: 42000000000,
-              chainId: "0x1",
-            });
-
-            if (tx.from === address && tx.to === wallet) return tx.hash;
-            return false;
-          }
+          return false;
+        } else {
+          toast.info("Please select BSC Mainnet or Ethereum Mainnet");
+          return false;
         }
-        return false;
       } else {
         toast.info("You have to connect your wallet");
         return false;
@@ -227,6 +233,8 @@ export const sendToken = async (
       toast.error("There is a problem about contract ABIs");
     } else if (error.message.includes("User rejected the transaction")) {
       toast.info("You rejected it");
+    } else if (error.message.includes("unconfigured name")) {
+      toast.info("You should create a wallet in the system");
     } else {
       toast.error(error.message);
     }

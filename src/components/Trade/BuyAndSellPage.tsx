@@ -57,51 +57,55 @@ function BuyAndSellPage() {
   }, [chainId, generalValues.walletAddress]);
 
   const buyAndSellCoin = async () => {
-    if (buyAndSellFrom) {
-      if (buyAndSellTo) {
-        if (buyAndSellAmount) {
-          const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+    if (chainId === 1 || chainId === 56) {
+      if (buyAndSellFrom) {
+        if (buyAndSellTo) {
+          if (buyAndSellAmount) {
+            const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-          const buyData: any = {
-            amount: buyAndSellAmount,
-            tokens: [buyAndSellFrom, buyAndSellTo],
-            network: generalValues.currentNetwork,
-          };
+            const buyData: any = {
+              amount: buyAndSellAmount,
+              tokens: [buyAndSellFrom, buyAndSellTo],
+              network: generalValues.currentNetwork,
+            };
 
-          const res = await fetch(`${BACKEND_URL}/trade/buy-and-sell`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
-            },
-            body: JSON.stringify(buyData),
-          });
+            const res = await fetch(`${BACKEND_URL}/trade/buy-and-sell`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${getAccessTokenFromLocalStorage()}`,
+              },
+              body: JSON.stringify(buyData),
+            });
 
-          const status = await res.status;
+            const status = await res.status;
 
-          const data = await res.json();
+            const data = await res.json();
 
-          if (status === 200) {
-            toast.success(data.message);
-            setIsLoadingForBuy(false);
-            setIsLoadingForSell(false);
+            if (status === 200) {
+              toast.success(data.message);
+              setIsLoadingForBuy(false);
+              setIsLoadingForSell(false);
+            } else {
+              setIsLoadingForBuy(false);
+              setIsLoadingForSell(false);
+
+              if (data?.message) toast.error(data.message);
+              else if (data?.error?.message) toast.error(data.error.message);
+              else if (data?.error) toast.error(data.error);
+              else if (data[0]) toast.error(data[0].message);
+            }
           } else {
-            setIsLoadingForBuy(false);
-            setIsLoadingForSell(false);
-
-            if (data?.message) toast.error(data.message);
-            else if (data?.error?.message) toast.error(data.error.message);
-            else if (data?.error) toast.error(data.error);
-            else if (data[0]) toast.error(data[0].message);
+            toast.info("Please enter an amount!");
           }
         } else {
-          toast.info("Please enter an amount!");
+          toast.info("Select To for trading");
         }
       } else {
-        toast.info("Select To for trading");
+        toast.info("Select From for trading");
       }
     } else {
-      toast.info("Select From for trading");
+      toast.info("Please select BSC Mainnet or Ethereum Mainnet");
     }
     setIsLoadingForBuy(false);
     setIsLoadingForSell(false);

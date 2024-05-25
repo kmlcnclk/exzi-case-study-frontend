@@ -18,6 +18,7 @@ function BalancePage() {
       usdtBalanceOnEthereum: "",
     },
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const a = async () => {
@@ -43,6 +44,7 @@ function BalancePage() {
         else if (data?.error) toast.error(data.error);
         else if (data[0]) toast.error(data[0].message);
       }
+      setIsLoading(false);
     };
     a();
   }, []);
@@ -57,8 +59,8 @@ function BalancePage() {
         width: "100vh",
       }}
     >
-      <Reveal>
-        {balances.binance.binanceBalance ? (
+      {balances?.binance?.binanceBalance ? (
+        <Reveal>
           <Box
             sx={{
               display: "flex",
@@ -209,18 +211,31 @@ function BalancePage() {
               ) : null}
             </Box>
           </Box>
-        ) : (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+        </Reveal>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {isLoading ? (
             <CircularProgress size={40} sx={{ color: "#f3f3f3" }} />
-          </Box>
-        )}
-      </Reveal>
+          ) : (
+            <Typography
+              sx={{
+                fontWeight: "600",
+                fontSize: "18px",
+              }}
+            >
+              You do not have any wallet
+            </Typography>
+          )}
+        </Box>
+      )}
     </Box>
   );
 }

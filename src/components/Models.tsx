@@ -109,7 +109,7 @@ const Models: React.FC<Props> = ({ user }: Props) => {
                 generalValues?.walletAddressInSystem?.length
               )}
             </Typography>
-            <Typography
+            {/* <Typography
               sx={{
                 fontSize: "13px",
                 fontWeight: "600",
@@ -118,7 +118,7 @@ const Models: React.FC<Props> = ({ user }: Props) => {
             >
               {generalValues.currentBalance}{" "}
               {generalValues.currentNetwork === "bsc" ? "BNB" : "ETH"}
-            </Typography>
+            </Typography> */}
           </Box>
           <Box
             sx={{
