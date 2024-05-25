@@ -81,6 +81,9 @@ The system supports the following networks and tokens:
 
 The system is built using Node version v20.11.1.
 
+## Note
+
+- Normally important information such as `.env` should not be added to GitHub projects, but I added it so that the application can be run by everyone.
 
 ## Getting Started
 
