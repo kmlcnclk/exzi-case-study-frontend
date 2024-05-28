@@ -81,7 +81,7 @@ function BalancePage() {
                 color: "black",
               }}
             >
-              Your Wallet's Balances
+              Your Wallet&apos;s Balances
             </Typography>
             <Box
               sx={{
